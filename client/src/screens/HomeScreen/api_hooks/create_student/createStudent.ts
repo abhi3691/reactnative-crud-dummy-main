@@ -11,17 +11,17 @@ const createStudent = async (data: studentprops) => {
       },
     });
     response = res?.data;
-    let resData: dataProps = res.data.data;
-    const callback = (e: dataProps | dataProps[]) => {
-      console.log("e", e);
-    };
-    createStudentDB({
-      id: resData.id,
-      name: resData.name,
-      age: resData.age,
-      gender: resData.gender,
-      callback,
-    });
+    // let resData: dataProps = res.data.data;
+    // const callback = (e: dataProps | dataProps[]) => {
+    //   console.log("e", e);
+    // };
+    // createStudentDB({
+    //   id: resData.id,
+    //   name: resData.name,
+    //   age: resData.age,
+    //   gender: resData.gender,
+    //   callback,
+    // });
   } catch (err) {
     console.log("err", err);
     response = false;

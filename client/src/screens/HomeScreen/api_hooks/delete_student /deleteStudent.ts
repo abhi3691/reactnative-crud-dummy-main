@@ -11,11 +11,11 @@ const deleteStudent = async (id: number) => {
       },
     });
     response = res?.data;
-    let resData: dataProps = res.data.data;
-    const callback = (e: dataProps) => {
-      console.log("e", e);
-    };
-    deleteStudentDB(resData.id, callback);
+    // let resData: dataProps = res.data.data;
+    // const callback = (e: dataProps) => {
+    //   console.log("e", e);
+    // };
+    // deleteStudentDB(resData.id, callback);
   } catch (err) {
     console.log("err", err);
     response = false;

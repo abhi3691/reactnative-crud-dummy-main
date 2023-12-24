@@ -1,18 +1,19 @@
-import {View} from 'react-native';
-import React, {useCallback, useLayoutEffect, useRef} from 'react';
+import { View } from "react-native";
+import React, { useCallback, useLayoutEffect, useRef } from "react";
 import {
   DataProvider,
   SimpleRecycler,
-} from 'react-native-simple-recyclerlistview';
-import ScreenRatio from '../../../../components/constants/ScreenRatio';
-import colors from '../../../../components/constants/colors';
-import SingleStudent from '../../orgninzation/SingleStudent';
-import styles from './styles';
-import StudentsListHeader from '../../molecules/students_list_titile';
-import deleteStudent from '../../api_hooks/delete_student /deleteStudent';
-import {getAllStudentsDB} from '../../functions/db_oprations/dbOprations';
-import {useIsFocused} from '@react-navigation/native';
-import Toast from 'react-native-simple-toast';
+} from "react-native-simple-recyclerlistview";
+import ScreenRatio from "../../../../components/constants/ScreenRatio";
+import colors from "../../../../components/constants/colors";
+import SingleStudent from "../../orgninzation/SingleStudent";
+import styles from "./styles";
+import StudentsListHeader from "../../molecules/students_list_titile";
+import deleteStudent from "../../api_hooks/delete_student /deleteStudent";
+import { getAllStudentsDB } from "../../functions/db_oprations/dbOprations";
+import { useIsFocused } from "@react-navigation/native";
+import Toast from "react-native-simple-toast";
+import getAllStudents from "../../api_hooks/get_all_students/get_all_students";
 
 const StudentsList = () => {
   const recyclerRef = useRef<SimpleRecycler>(null);
@@ -23,23 +24,29 @@ const StudentsList = () => {
     }
   }, [isFocused]);
 
-  const loadData = () => {
-    getAllStudentsDB(e => {
-      if (e.length) {
-        recyclerRef.current?.loadDataFromApi(e);
-      } else {
-        recyclerRef.current?.loadDataFromApi([]);
-      }
-    });
+  const loadData = async () => {
+    // getAllStudentsDB(e => {
+    //   if (e.length) {
+    //     recyclerRef.current?.loadDataFromApi(e);
+    //   } else {
+    //     recyclerRef.current?.loadDataFromApi([]);
+    //   }
+    // });
+    let students = await getAllStudents();
+    if (students) {
+      recyclerRef.current?.loadDataFromApi(students);
+    } else {
+      recyclerRef.current.loadDataFromApi([]);
+    }
   };
 
   const deleteStudentFn = useCallback(async (id: number, index: number) => {
     let response = await deleteStudent(id);
     if (response) {
       recyclerRef.current?.SpliceData(index);
-      Toast.show('Delete Successuflly', Toast.LONG);
+      Toast.show("Delete Successuflly", Toast.LONG);
     } else {
-      Toast.show('Delete Failed', Toast.LONG);
+      Toast.show("Delete Failed", Toast.LONG);
     }
   }, []);
 
@@ -48,7 +55,7 @@ const StudentsList = () => {
     _type: string | number,
     data: any,
     index: number,
-    _extendedState?: object | undefined,
+    _extendedState?: object | undefined
   ) => (
     <SingleStudent
       index={index}
@@ -66,7 +73,7 @@ const StudentsList = () => {
         height={ScreenRatio.height / 10}
         width={ScreenRatio.width}
         activityColor={colors.black}
-        activitySize={'large'}
+        activitySize={"large"}
         rowRenderer={rowRenderer}
         emptyTextStyle={styles.emptyText}
         ref={recyclerRef}

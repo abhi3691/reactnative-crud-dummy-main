@@ -1,13 +1,13 @@
-import {SafeAreaView} from 'react-native';
-import React, {useLayoutEffect} from 'react';
-import styles from './styles';
-import StudentsList from './template/students_list';
-import {createDb} from './functions/db_oprations/dbOprations';
-import CreateButton from './orgninzation/CreateButton';
+import { SafeAreaView } from "react-native";
+import React, { useLayoutEffect } from "react";
+import styles from "./styles";
+import StudentsList from "./template/students_list";
+import { createDb } from "./functions/db_oprations/dbOprations";
+import CreateButton from "./orgninzation/CreateButton";
 
 const HomeScreen = () => {
   useLayoutEffect(() => {
-    createDb();
+    // createDb();
   }, []);
 
   return (
