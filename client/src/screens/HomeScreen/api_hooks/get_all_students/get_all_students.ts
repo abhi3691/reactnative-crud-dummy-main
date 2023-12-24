@@ -1,5 +1,4 @@
 import axios from "axios";
-import { createStudentDB } from "../../functions/db_oprations/dbOprations";
 import { BaseUrl } from "../../../../../staging";
 
 const getAllStudents = async () => {
